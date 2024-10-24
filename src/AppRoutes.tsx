@@ -23,6 +23,9 @@ import {
   handleAddComment,
   handleAddPost,
 } from "./utils/handlers";
+// import Grids from "./components/Grid/grids";
+import GridDetail from "./components/Grid/GridDetail";
+import GridPage from "./components/Grid/GridPage";
 
 function AppRoutes() {
   const { state, dispatch } = useAuth();
@@ -179,6 +182,30 @@ function AppRoutes() {
           isAuthenticated(state.accessToken) ? (
             <Layout>
               <MyPage />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/grids"
+        element={
+          isAuthenticated(state.accessToken) ? (
+            <Layout>
+              <GridPage />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/grid/:id"
+        element={
+          isAuthenticated(state.accessToken) ? (
+            <Layout>
+              <GridDetail />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

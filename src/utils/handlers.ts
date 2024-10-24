@@ -7,10 +7,14 @@ export const handleLogin = async (
   dispatch: any
 ) => {
   try {
-    const { access, refresh } = await login(username, password);
+    const { access, refresh, user } = await login(username, password);
     dispatch({
       type: "SET_TOKENS",
-      payload: { accessToken: access, refreshToken: refresh },
+      payload: { accessToken: access, refreshToken: refresh, user: user },
+    });
+    dispatch({
+      type: "SET_USER",
+      payload: { user: user },
     });
   } catch (error) {
     console.error("Login failed", error);
