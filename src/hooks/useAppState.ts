@@ -22,6 +22,8 @@ export const useAppState = () => {
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
   const location = useLocation();
   const [postsPerPage, setPostsPerPage] = useState(5);
+  const [startDate, setStartDate] = useState<string | null>(null);
+  const [endDate, setEndDate] = useState<string | null>(null);
 
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -40,7 +42,9 @@ export const useAppState = () => {
       newSortField = sortField,
       newSortDirection = sortDirection,
       newSearchTerm = searchTerm,
-      newCategoryFilter = categoryFilter
+      newCategoryFilter = categoryFilter,
+      newStartDate = startDate,
+      newEndDate = endDate
     ) => {
       try {
         const fetchedPosts = await getPosts(
@@ -50,7 +54,9 @@ export const useAppState = () => {
           newSortField,
           newSortDirection,
           newSearchTerm,
-          newCategoryFilter
+          newCategoryFilter,
+          newStartDate,
+          newEndDate
         );
         setPostsState((prevState) => ({
           ...fetchedPosts,
@@ -60,6 +66,8 @@ export const useAppState = () => {
         setSortDirection(newSortDirection);
         setSearchTerm(newSearchTerm);
         setCategoryFilter(newCategoryFilter);
+        setStartDate(newStartDate);
+        setEndDate(newEndDate);
       } catch (error) {
         console.error("Failed to fetch posts", error);
       }
@@ -71,6 +79,8 @@ export const useAppState = () => {
       sortDirection,
       searchTerm,
       categoryFilter,
+      startDate,
+      endDate,
     ]
   );
 
@@ -130,6 +140,21 @@ export const useAppState = () => {
     [fetchPosts, sortField, sortDirection, searchTerm, categoryFilter]
   );
 
+  const handleDateRangeChange = useCallback(
+    (newStartDate: string, newEndDate: string) => {
+      fetchPosts(
+        1,
+        sortField,
+        sortDirection,
+        searchTerm,
+        categoryFilter,
+        newStartDate,
+        newEndDate
+      );
+    },
+    [fetchPosts, sortField, sortDirection, searchTerm, categoryFilter]
+  );
+
   return {
     postsState,
     setPostsState,
@@ -155,5 +180,8 @@ export const useAppState = () => {
     handleSearch,
     handleCategoryChange,
     handlePageChange,
+    startDate,
+    endDate,
+    handleDateRangeChange,
   };
 };

@@ -104,19 +104,23 @@ export const getPosts = async (
   sortField: string = "date",
   sortDirection: "asc" | "desc" = "desc",
   searchTerm: string = "",
-  category: string = ""
+  category: string = "",
+  startDate: string | null = null,
+  endDate: string | null = null
 ) => {
   try {
-    const response = await axios.get(
-      `${API_URL}/posts/?page=${page}&page_size=${pageSize}&ordering=${
-        sortDirection === "desc" ? "-" : ""
-      }${sortField}&search=${searchTerm}&category=${category}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    let url = `${API_URL}/posts/?page=${page}&page_size=${pageSize}&ordering=${
+      sortDirection === "desc" ? "-" : ""
+    }${sortField}&search=${searchTerm}&category=${category}`;
+
+    if (startDate) url += `&start_date=${startDate}`;
+    if (endDate) url += `&end_date=${endDate}`;
+
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching posts:", error);
