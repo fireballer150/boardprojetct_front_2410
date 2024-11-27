@@ -456,3 +456,66 @@
     }
   }
 }
+
+.filter-cell {
+  padding: 4px;
+}
+
+.filter-input {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+.rdg-header-row {
+  background-color: #f8f9fa;
+  height: auto !important;
+  min-height: 40px;
+}
+
+.rdg-cell {
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  height: auto !important;
+  white-space: normal;
+  overflow: visible;
+}
+
+.header-cell {
+  cursor: pointer;
+  padding: 8px;
+  height: auto !important;
+  min-height: 40px;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.filter-input {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-top: 4px;
+  z-index: 1;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
